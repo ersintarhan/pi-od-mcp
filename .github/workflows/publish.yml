@@ -1,15 +1,21 @@
+# Auto-publish to npm via Trusted Publishing (OIDC) on version tags.
+# ponytail: tag-driven, so publish is always intentional — npm version patch && git push --tags.
+# Provenance (sigstore-signed) gives a verifiable build provenance on npm.
 name: publish
 
-# Publishes to npm via Trusted Publishing (OIDC) — no NPM_TOKEN secret needed.
-# Trigger: cut a GitHub Release (or run manually from Actions).
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: # manual run from Actions tab
 
 permissions:
   contents: read
-  id-token: write # required for npm OIDC trusted publishing
+  id-token: write # required for npm provenance / trusted publishing
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -19,12 +25,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "22" # npm 11+ required for OIDC trusted publishing (Node 20 ships npm 10)
           registry-url: "https://registry.npmjs.org"
+
+      # Ensure absolute latest npm (trusted publishing needs >=11.5.1).
+      - run: npm install -g npm@latest
 
       - run: npm ci
       - run: npm run typecheck
-
-      # provenance + access come from package.json publishConfig.
-      # OIDC handshake needs no token; setup-node wires the registry.
-      - run: npm publish
+      - run: npm publish --access public --provenance
