@@ -1,0 +1,59 @@
+{
+  "name": "pi-od-mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "pi extension that bridges Open Design's od mcp stdio MCP server into pi tools.",
+  "license": "Apache-2.0",
+  "author": "Ersin Tarhan <ersin@ersintarhan.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ersintarhan/pi-od-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ersintarhan/pi-od-mcp/issues"
+  },
+  "homepage": "https://github.com/ersintarhan/pi-od-mcp#readme",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi",
+    "open-design",
+    "mcp"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "files": [
+    "index.ts",
+    "scripts/smoke.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "smoke": "node --experimental-strip-types scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.80.0",
+    "@earendil-works/pi-tui": "^0.80.0",
+    "@types/node": "^24.0.0",
+    "typebox": "^1.2.0",
+    "typescript": "^6.0.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": { "optional": true },
+    "@earendil-works/pi-tui": { "optional": true },
+    "typebox": { "optional": true }
+  },
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}
