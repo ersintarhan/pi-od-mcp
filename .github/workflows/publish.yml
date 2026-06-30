@@ -14,7 +14,6 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: release # must match the env configured on npm's trusted publisher
     steps:
       - uses: actions/checkout@v4
 
