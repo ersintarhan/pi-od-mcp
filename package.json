@@ -37,7 +37,7 @@
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.80.0",
+    "@earendil-works/pi-coding-agent": "^0.99.1",
     "@earendil-works/pi-tui": "^0.80.0",
     "@types/node": "^24.0.0",
     "typebox": "^1.2.0",
